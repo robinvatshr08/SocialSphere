@@ -3,4 +3,4 @@ $(document).ready(() => {
         outputPosts(results, $(".postsContainer"));
     })
 })
-//home page
+//home page 1
