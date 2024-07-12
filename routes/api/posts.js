@@ -17,6 +17,11 @@ router.get("/", async (req, res, next) => {
         delete searchObj.isReply;
     }
 
+    if(searchObj.search !== undefined) {
+        searchObj.content = { $regex: searchObj.search, $options: "i" };
+        delete searchObj.search;
+    }
+
     if(searchObj.followingOnly !== undefined) {
         var followingOnly = searchObj.followingOnly == "true";
 
@@ -161,6 +166,24 @@ router.post("/:id/retweet", async (req, res, next) => {
 router.delete("/:id", (req, res, next) => {
     Post.findByIdAndDelete(req.params.id)
     .then(() => res.sendStatus(202))
+    .catch(error => {
+        console.log(error);
+        res.sendStatus(400);
+    })
+})
+
+router.put("/:id", async (req, res, next) => {
+
+    if(req.body.pinned !== undefined) {
+        await Post.updateMany({postedBy: req.session.user }, { pinned: false })
+        .catch(error => {
+            console.log(error);
+            res.sendStatus(400);
+        })
+    }
+
+    Post.findByIdAndUpdate(req.params.id, req.body)
+    .then(() => res.sendStatus(204))
     .catch(error => {
         console.log(error);
         res.sendStatus(400);
