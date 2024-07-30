@@ -9,6 +9,8 @@ block content
             var selectedTab = '!{selectedTab}';
 
         .tabsContainer
+            .loadingSpinnerContainer
+                    img(src="/images/loadingSpinner.gif", alt="Loading spinner")
             +createTab("Following", `/profile/${profileUser.username}/following`, selectedTab != "followers")
             +createTab("Followers", `/profile/${profileUser.username}/followers`, selectedTab == "followers")
 

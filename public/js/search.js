@@ -32,6 +32,8 @@ function search(searchTerm, searchType) {
         else {
             outputPosts(results, $(".resultsContainer"))
         }
-
+       
     })
+   
+   
 }

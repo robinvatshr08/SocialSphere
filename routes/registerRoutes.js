@@ -4,6 +4,8 @@ const router = express.Router();
 const bodyParser = require("body-parser")
 //const bcrypt=require('bcyrptjs')
 const User = require('../schemas/UserSchema');
+const uuid = require('uuid-random');
+const nodemailer = require('nodemailer');
 
 app.set("view engine", "pug");
 app.set("views", "views");
@@ -14,6 +16,49 @@ router.get("/", (req, res, next) => {
 
     res.status(200).render("register");
 })
+// router.post('/', async (req, res) => {
+//     const { email, password, username } = req.body;
+
+//     const user = new User({
+//         email,
+//         password, // Ensure you hash the password before saving
+//         username,
+//         verificationToken: uuid(),
+//         isVerified: false
+//     });
+
+//     try {
+//         await user.save();
+
+//         // Send verification email
+//         const transporter = nodemailer.createTransport({
+//             service: 'Gmail',
+//             auth: {
+//                 user: 'your-email@gmail.com',
+//                 pass: 'your-email-password'
+//             }
+//         });
+
+//         const mailOptions = {
+//             from: 'your-email@gmail.com',
+//             to: user.email,
+//             subject: 'Email Verification',
+//             text: `Please verify your email by clicking the link: http://yourdomain.com/verify-email?token=${user.verificationToken}`
+//         };
+
+//         transporter.sendMail(mailOptions, (error, info) => {
+//             if (error) {
+//                 console.log(error);
+//                 return res.status(500).send('Error sending email');
+//             }
+//             console.log('Email sent: ' + info.response);
+//             res.status(200).send('Registration successful! Please check your email to verify your account.');
+//         });
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send('Server error');
+//     }
+// });
 
 router.post("/", async (req, res, next) => {
 
@@ -69,5 +114,7 @@ router.post("/", async (req, res, next) => {
         res.status(200).render("register", payload);
     }
 })
+
+
 
 module.exports = router;
