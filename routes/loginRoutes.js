@@ -6,6 +6,7 @@ const bodyParser = require("body-parser")
 const User = require('../schemas/UserSchema');
 
 app.set("view engine", "pug");
+
 app.set("views", "views");
 
 app.use(bodyParser.urlencoded({ extended: false }));
