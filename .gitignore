@@ -1,0 +1,5 @@
+node_module/*
+node_modules/.bin/mime.cmd
+node_modules/.bin/detect-libc.cmd
+node_modules/.bin/mime.cmd
+node_modules/.bin/detect-libc.cmd
